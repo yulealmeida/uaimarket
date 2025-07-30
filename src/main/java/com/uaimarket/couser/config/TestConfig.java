@@ -1,8 +1,10 @@
 package com.uaimarket.couser.config;
 
+import com.uaimarket.couser.entities.Category;
 import com.uaimarket.couser.entities.Order;
 import com.uaimarket.couser.entities.User;
 import com.uaimarket.couser.entities.enums.OrderStatus;
+import com.uaimarket.couser.repositories.CategoryRepository;
 import com.uaimarket.couser.repositories.OrderRepository;
 import com.uaimarket.couser.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,23 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
-
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run (String... args) throws Exception {
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
+
+
+
+
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 
