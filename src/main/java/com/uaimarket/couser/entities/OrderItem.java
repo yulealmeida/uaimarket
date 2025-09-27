@@ -1,5 +1,6 @@
 package com.uaimarket.couser.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uaimarket.couser.entities.pk.OrdemItemPK;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -11,25 +12,26 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrdemItem implements Serializable {
+public class OrderItem implements Serializable {
 
     @EmbeddedId
-    private OrdemItemPK id;
+    private OrdemItemPK id = new OrdemItemPK();
 
 
     private Integer quantity;
     private Double price;
 
-    public OrdemItem () {
+    public OrderItem () {
     }
 
-    public OrdemItem (Order order,Product product,Integer quantity, Double price) {
+    public OrderItem (Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder () {
         return id.getOrder();
     }
@@ -38,7 +40,7 @@ public class OrdemItem implements Serializable {
         id.setOrder(order);
     }
 
-    public Product product () {
+    public Product getProduct () {
         return id.getProduct();
     }
 
@@ -50,7 +52,7 @@ public class OrdemItem implements Serializable {
         return price;
     }
 
-    public OrdemItem setPrice (Double price) {
+    public OrderItem setPrice (Double price) {
         this.price = price;
         return this;
     }
@@ -59,7 +61,7 @@ public class OrdemItem implements Serializable {
         return quantity;
     }
 
-    public OrdemItem setQuantity (Integer quantity) {
+    public OrderItem setQuantity (Integer quantity) {
         this.quantity = quantity;
         return this;
     }
@@ -68,8 +70,8 @@ public class OrdemItem implements Serializable {
     public boolean equals (Object o) {
         if(this == o) return true;
         if(o == null || getClass() != o.getClass()) return false;
-        OrdemItem ordemItem = (OrdemItem) o;
-        return Objects.equals(id, ordemItem.id);
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id);
     }
 
     @Override

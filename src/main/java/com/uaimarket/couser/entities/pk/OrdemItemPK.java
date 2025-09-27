@@ -21,22 +21,17 @@ public class OrdemItemPK implements Serializable {
     private Product product;
 
 
-    public Order getOrder () {
+    public Order getOrder() {
         return order;
     }
-
-    public OrdemItemPK setOrder (Order order) {
+    public void setOrder(Order order) {
         this.order = order;
-        return this;
     }
-
-    public Product getProduct () {
+    public Product getProduct() {
         return product;
     }
-
-    public OrdemItemPK setProduct (Product product) {
+    public void setProduct(Product product) {
         this.product = product;
-        return this;
     }
 
     @Override
