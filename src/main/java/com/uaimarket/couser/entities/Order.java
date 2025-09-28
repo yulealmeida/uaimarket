@@ -32,9 +32,6 @@ public class Order implements Serializable {
 
 
 
-
-
-
     public Order () {
     }
 
@@ -87,6 +84,8 @@ public class Order implements Serializable {
     public Set<OrderItem> getItens(){
         return itens;
     }
+
+
 
     @Override
     public boolean equals (Object o) {
