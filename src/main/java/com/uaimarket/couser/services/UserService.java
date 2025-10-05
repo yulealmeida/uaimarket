@@ -2,8 +2,11 @@ package com.uaimarket.couser.services;
 
 import com.uaimarket.couser.entities.User;
 import com.uaimarket.couser.repositories.UserRepository;
+import com.uaimarket.couser.services.exceptions.DatabaseExeption;
 import com.uaimarket.couser.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +33,15 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try {
+            if (!repository.existsById(id)) {
+                throw new ResourceNotFoundException(id);
+            }
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseExeption(e.getMessage());
+        }
+
     }
 
     public User update(Long id, User obj){
@@ -44,6 +55,7 @@ public class UserService {
         entity.setEmail(obj.getEmail());
         entity.setPhone(obj.getPhone());
     }
+
 
 
 }
